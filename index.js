@@ -6,7 +6,7 @@ const Host = 'https://cimanow.cc';
 client = axios.create({
             timeout: 4000,
             headers: {
-                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; rv:91.0) Gecko/20100101 Firefox/91.0"
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/113.0"
             }
         });
 
@@ -51,18 +51,18 @@ async function search(type, query) {
         console.log(error);
     }    
 
-    let parsed = parser.parse(promise).querySelector("section[aria-label='posts']").querySelectorAll("article[aria-label='post']");
+    let parsed = parser.parse(promise).querySelector('section').querySelectorAll("article");
 
         return parsed.map( (movie) => {
             if (movie) {
                 let cat = {
                     id: movie.querySelector('a').rawAttributes['href'].toString().concat('/watching/'),
                     type: type,
-                    title : movie.querySelector("li[aria-label='title']").rawText.toString(),
-                    poster : movie.querySelector('.lazy.entered.loaded').rawAttributes['src'].toString(),
+                    title : movie.querySelector('.info').querySelector('li:nth-child(3)').rawText.toString(),
+                    poster : movie.querySelector('a').querySelector('img').rawAttributes['src'].toString(),
                 }
-                if (movie.querySelector("li[aria-label='year']")) {
-                    cat.released = movie.querySelector("li[aria-label='year']").rawText.toString();
+                if (movie.querySelector('a').querySelector('li:nth-child(2)')) {
+                    cat.released = movie.querySelector('a').querySelector('li:nth-child(2)').rawText.toString();
                 }
                 // console.log(cat);
                 return cat;
@@ -74,7 +74,7 @@ async function search(type, query) {
 
 // search('series', 'game of thrones');
 
-async function catalog (type, id, extra) {
+async function catalog (type, id) {
     try {
         if(type === 'movie') {
             if (id === "CNmovies"){
@@ -109,16 +109,16 @@ async function catalog (type, id, extra) {
         }
         var res = encodeURI(URL);
             var promise = (await client.get(res)).data;
-            let parsed = parser.parse(promise).querySelector("section[aria-label='posts']").querySelectorAll("article[aria-label='post']");
+            let parsed = parser.parse(promise).querySelector("section").querySelectorAll("article");
             return parsed.map( (movie) => {
                 let cat = {
                     id: movie.querySelector('a').rawAttributes['href'].toString(),
                     type: type,
-                    name : movie.querySelector("li[aria-label='title']").rawText.toString(),
-                    poster : movie.querySelector('.lazy.entered.loaded').rawAttributes['src'].toString(),
+                    name : movie.querySelector('.info').querySelector('li:nth-child(3)').rawText.toString(),
+                    poster : movie.querySelector('a').querySelector('img').rawAttributes['src'].toString(),
                 }
-                if (movie.querySelector("li[aria-label='year']")) {
-                    cat.releaseInfo = movie.querySelector("li[aria-label='year']").rawText.toString();
+                if (movie.querySelector('a').querySelector('li:nth-child(2)')) {
+                    cat.releaseInfo = movie.querySelector('a').querySelector('li:nth-child(2)').rawText.toString();
                 }
                 return cat;
                 
