@@ -130,15 +130,25 @@ else if (id === "CNmovies-Arabic") {
             
 
         }
-        else if (type === 'series') {
+       else if (type === 'series') {
             if (id === "CNseries"){
                 var URL = `${Host}/category/المسلسلات/`;
-            }
-            else if (id === "CNseries-English") {
-                var URL = `${Host}/category/مسلسلات-اجنبية/`;
+
+                if (extra === "New") {
+                    var URL = `${Host}/الاحدث/`;
+                }
+                else if (extra === "Old"){
+                    var URL = `${Host}/category/المسلسلات/`;
+                }
+                else if (extra === "Best"){
+                    var URL = `${Host}/category/المسلسلات/`
+                }
             }
             else if (id === "CNseries-Arabic") {
                 var URL = `${Host}/category/مسلسلات-عربية/`;
+            }
+            else if (id === "CNseries-English") {
+                var URL = `${Host}/category/مسلسلات-اجنبية/`;
             }
             else if (id === "CNseries-Turk") {
                 var URL = `${Host}/category/مسلسلات-تركية/`;
