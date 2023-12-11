@@ -10,9 +10,9 @@
 	"catalogs": [{
 		"type": "movie",
 
-		"id": "CNmovies",
+		"id": "MCmovies",
 
-		"name": "CimaNow movies",
+		"name": "Mycima movies",
 
 		"extra":
 		[{
@@ -23,9 +23,9 @@
 	}, {
 		"type": "series",
 
-		"id": "CNseries",
+		"id": "MCseries",
 
-		"name": "CimaNow series",
+		"name": "Mycima series",
 
 		"extra":
 		[{
@@ -36,9 +36,9 @@
 	},{
 		"type": "movie",
 
-		"id": "CNmovies",
+		"id": "MCmovies",
 
-		"name": "CimaNow All Movies",
+		"name": "Mycima All Movies",
 		"extra": 
 		[{ 
 			"name": "genre", "isRequired": false, "options": ["New", "Old", "Best"] 
@@ -46,20 +46,9 @@
 	},{
 		"type": "movie",
 
-		"id": "CNmovies-English",
+		"id": "MCmovies-Arabic",
 
-		"name": "CimaNow English Movies",
-
-		"extra": 
-		[{ 
-			"name": "genre", "isRequired": false, "options": ["New", "Old", "Best"] 
-		}]
-	},{
-		"type": "movie",
-
-		"id": "CNmovies-Arabic",
-
-		"name": "CimaNow Arabic Movies",
+		"name": "Mycima Arabic Movies",
 
 		"extra": 
 		[{ 
@@ -68,9 +57,31 @@
 	},{
 		"type": "movie",
 
-		"id": "CNmovies-Turk",
+		"id": "MCmovies-English",
 
-		"name": "CimaNow Turk Movies",
+		"name": "Mycima English Movies",
+
+		"extra": 
+		[{ 
+			"name": "genre", "isRequired": false, "options": ["New", "Old", "Best"] 
+		}]
+	},{
+		"type": "movie",
+
+		"id": "MCmovies-Indian",
+
+		"name": "Mycima Indian Movies",
+
+		"extra": 
+		[{ 
+			"name": "genre", "isRequired": false, "options": ["New", "Old", "Best"] 
+		}]
+	},{
+		"type": "movie",
+
+		"id": "MCmovies-Turkish",
+
+		"name": "Mycima Turkish Movies",
 
 		"extra": 
 		[{ 
@@ -79,9 +90,9 @@
 	},{
 		"type": "series",
 
-		"id": "CNseries",
+		"id": "MCseries",
 
-		"name": "CimaNow All Series",
+		"name": "Mycima All Series",
 		"extra": 
 		[{ 
 			"name": "genre", "isRequired": false, "options": ["New", "Old", "Best"] 
@@ -89,21 +100,33 @@
 	},{
 		"type": "series",
 
-		"id": "CNseries-English",
+		"id": "MCseries-Arabic",
 
-		"name": "CimaNow English Series"
+		"name": "Mycima Arabic Series"
 	},{
 		"type": "series",
 
-		"id": "CNseries-Arabic",
+		"id": "MCseries-English",
 
-		"name": "CimaNow Arabic Series"
+		"name": "Mycima English Series"
 	},{
 		"type": "series",
 
-		"id": "CNseries-Turk",
+		"id": "MCseries-Indian",
 
-		"name": "CimaNow Turk Series"
+		"name": "Mycima Indian Series"
+	},{
+		"type": "series",
+
+		"id": "MCseries-Turkish",
+
+		"name": "Mycima Turkish Series"
+	},{
+		"type": "series",
+
+		"id": "MCseries-Asian",
+
+		"name": "Mycima Asian Series"
 	}
 ],
 	"resources": [
