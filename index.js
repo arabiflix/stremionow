@@ -74,20 +74,57 @@ async function search(type, query) {
 
 // search('series', 'game of thrones');
 
-async function catalog (type, id) {
+async function catalog (type, id, extra) {
     try {
         if(type === 'movie') {
             if (id === "CNmovies"){
                 var URL = `${Host}/category/الافلام/`;
+
+                if (extra === "New") {
+                    var URL = `${Host}/الاحدث/`;
+                }
+                else if (extra === "Old"){
+                    var URL = `${Host}/category/الافلام/`;
+                }
+                else if (extra === "Best"){
+                    var URL = `${Host}/category/الافلام/`
+                }
+            }
+else if (id === "CNmovies-Arabic") {
+                var URL = `${Host}/category/افلام-عربية/`;
+                if (extra === "New") {
+                    var URL = `${Host}/category/افلام-عربية/`;
+                }
+                else if (extra === "Old"){
+                    var URL = `${Host}/category/افلام-عربية/`;
+                }
+                else if (extra === "Best"){
+                    var URL = `${Host}/category/افلام-عربية/`
+                }
             }
             else if (id === "CNmovies-English") {
-                var URL = `${Host}category/افلام-اجنبية/`;
-            }
-            else if (id === "CNmovies-Arabic") {
-                var URL = `${Host}/category/افلام-عربية/`;
+                var URL = `${Host}/category/افلام-اجنبية/`;
+                if (extra === "New") {
+                    var URL = `${Host}/category/افلام-اجنبية/`;
+                }
+                else if (extra === "Old"){
+                    var URL = `${Host}/category/افلام-اجنبية/`;
+                }
+                else if (extra === "Best"){
+                    var URL = `${Host}/category/افلام-اجنبية/`
+                }
             }
             else if (id === "CNmovies-Turk") {
                 var URL = `${Host}/category/افلام-تركية/`;
+                if (extra === "New") {
+                    var URL = `${Host}/category/افلام-تركية/`;
+                }
+                else if (extra === "Old"){
+                    var URL = `${Host}/category/افلام-تركية/`;
+                }
+                else if (extra === "Best"){
+                    var URL = `${Host}/category/افلام-تركية/`
+                }
             }
             
             
