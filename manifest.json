@@ -1,0 +1,118 @@
+{
+	"id": "community.cimanow",
+	"version": "0.0.3",
+	"name": "CimaNow by Arabiflix",
+    "description": "Addon for Streaming from CimaNow by Arabiflix",
+    "logo": "https://cimanow.cc/wp-content/uploads/2017/05/Favicon.gif",
+	"background":"https://raw.githubusercontent.com/Stremio/stremio-art/main/originals/Ahlen%20Ken%20A.%20Batalon.png",
+    "contactEmail": "none",
+	
+	"catalogs": [{
+		"type": "movie",
+
+		"id": "CNmovies",
+
+		"name": "CimaNow movies",
+
+		"extra":
+		[{
+				"name": "search",
+				"isRequired": true
+			}
+		]
+	}, {
+		"type": "series",
+
+		"id": "CNseries",
+
+		"name": "CimaNow series",
+
+		"extra":
+		[{
+				"name": "search",
+				"isRequired": true
+			}
+		]
+	},{
+		"type": "movie",
+
+		"id": "CNmovies",
+
+		"name": "CimaNow All Movies",
+		"extra": 
+		[{ 
+			"name": "genre", "isRequired": false, "options": ["New", "Old", "Best"] 
+		}]
+	},{
+		"type": "movie",
+
+		"id": "CNmovies-English",
+
+		"name": "CimaNow English Movies",
+
+		"extra": 
+		[{ 
+			"name": "genre", "isRequired": false, "options": ["New", "Old", "Best"] 
+		}]
+	},{
+		"type": "movie",
+
+		"id": "CNmovies-Arabic",
+
+		"name": "CimaNow Arabic Movies",
+
+		"extra": 
+		[{ 
+			"name": "genre", "isRequired": false, "options": ["New", "Old", "Best"] 
+		}]
+	},{
+		"type": "movie",
+
+		"id": "CNmovies-Turk",
+
+		"name": "CimaNow Turk Movies",
+
+		"extra": 
+		[{ 
+			"name": "genre", "isRequired": false, "options": ["New", "Old", "Best"] 
+		}]
+	},{
+		"type": "series",
+
+		"id": "CNseries",
+
+		"name": "CimaNow All Series",
+		"extra": 
+		[{ 
+			"name": "genre", "isRequired": false, "options": ["New", "Old", "Best"] 
+		}]
+	},{
+		"type": "series",
+
+		"id": "CNseries-English",
+
+		"name": "CimaNow English Series"
+	},{
+		"type": "series",
+
+		"id": "CNseries-Arabic",
+
+		"name": "CimaNow Arabic Series"
+	},{
+		"type": "series",
+
+		"id": "CNseries-Turk",
+
+		"name": "CimaNow Turk Series"
+	}
+],
+	"resources": [
+		"catalog",
+		"stream",
+		"meta"
+	],
+	"types": [
+		"movie",
+		"series"
+	]
+}
