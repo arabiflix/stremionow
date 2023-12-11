@@ -1,12 +1,12 @@
 const axios = require('axios');
 const parser = require('fast-html-parser');
-const Host = 'https://cimanow.cc';
+const Host = 'https://mycimaa.fun';
 
 
 client = axios.create({
             timeout: 4000,
             headers: {
-                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/113.0"
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; rv:91.0) Gecko/20100101 Firefox/91.0"
             }
         });
 
@@ -15,8 +15,8 @@ async function search(type, query) {
 
     if (type === 'movie') {
         try {
-            var URL = `${Host}/?s=${query.replace(/\s/g, '+')}`;
-            var res = encodeURIComponent(URL);
+            var URL = `${Host}/search/${query.replace(/\s/g, '+')}`;
+            var res = encodeURI(URL);
             var promise = (await client.get(res)).data;
             var link = res;
         }catch(error) {
@@ -30,8 +30,8 @@ async function search(type, query) {
     }
     else if (type === 'series'){
         try {
-            var URL = `${Host}/?s=${query.replace(/\s/g, '+')}`;
-            var res = encodeURIComponent(URL);
+            var URL = `${Host}/search/${query.replace(/\s/g, '+')}/list/series/`;
+            var res = encodeURI(URL);
             var promise = (await client.get(res)).data;
             var link = res;
         }catch(error) {
@@ -51,18 +51,18 @@ async function search(type, query) {
         console.log(error);
     }    
 
-    let parsed = parser.parse(promise).querySelector('section').querySelectorAll("article");
+    let parsed = parser.parse(promise).querySelector('.Grid--MycimaPosts').querySelectorAll('.GridItem');
 
         return parsed.map( (movie) => {
             if (movie) {
                 let cat = {
-                    id: movie.querySelector('a').rawAttributes['href'].toString().concat('/watching/'),
+                    id: movie.querySelector('a').rawAttributes['href'].toString(),
                     type: type,
-                    title : movie.querySelector('.info').querySelector('li:nth-child(3)').rawText.toString(),
-                    poster : movie.querySelector('a').querySelector('img').rawAttributes['src'].toString(),
+                    title : movie.querySelector('a').rawAttributes['title'].toString(),
+                    poster : movie.querySelector('.BG--GridItem').rawAttributes['data-lazy-style'].replace(/\(|\)|;|--image:url/g, ''),
                 }
-                if (movie.querySelector('a').querySelector('li:nth-child(2)')) {
-                    cat.released = movie.querySelector('a').querySelector('li:nth-child(2)').rawText.toString();
+                if (movie.querySelector('.year')) {
+                    cat.released = movie.querySelector('.year').rawText.toString();
                 }
                 // console.log(cat);
                 return cat;
@@ -77,95 +77,114 @@ async function search(type, query) {
 async function catalog (type, id, extra) {
     try {
         if(type === 'movie') {
-            if (id === "CNmovies"){
-                var URL = `${Host}/category/الافلام/`;
+            if (id === "MCmovies"){
+                var URL = `${Host}/movies/top/`;
 
                 if (extra === "New") {
-                    var URL = `${Host}/الاحدث/`;
+                    var URL = `${Host}/movies/`;
                 }
                 else if (extra === "Old"){
-                    var URL = `${Host}/category/الافلام/`;
+                    var URL = `${Host}/movies/old/`;
                 }
                 else if (extra === "Best"){
-                    var URL = `${Host}/category/الافلام/`
+                    var URL = `${Host}/movies/best/`
                 }
             }
-else if (id === "CNmovies-Arabic") {
-                var URL = `${Host}/category/افلام-عربية/`;
+            else if (id === "MCmovies-Arabic") {
+                var URL = `${Host}/category/افلام/6-arabic-movies-افلام-عربي/list/top/`;
                 if (extra === "New") {
-                    var URL = `${Host}/category/افلام-عربية/`;
+                    var URL = `${Host}/category/افلام/6-arabic-movies-افلام-عربي/`;
                 }
                 else if (extra === "Old"){
-                    var URL = `${Host}/category/افلام-عربية/`;
+                    var URL = `${Host}/category/افلام/6-arabic-movies-افلام-عربي/list/old/`;
                 }
                 else if (extra === "Best"){
-                    var URL = `${Host}/category/افلام-عربية/`
+                    var URL = `${Host}/category/افلام/6-arabic-movies-افلام-عربي/list/best/`
                 }
             }
-            else if (id === "CNmovies-English") {
-                var URL = `${Host}/category/افلام-اجنبية/`;
+            else if (id === "MCmovies-English") {
+                var URL = `${Host}/category/افلام/10-movies-english-افلام-اجنبي/list/top/`;
                 if (extra === "New") {
-                    var URL = `${Host}/category/افلام-اجنبية/`;
+                    var URL = `${Host}/category/افلام/10-movies-english-افلام-اجنبي/`;
                 }
                 else if (extra === "Old"){
-                    var URL = `${Host}/category/افلام-اجنبية/`;
+                    var URL = `${Host}/category/افلام/10-movies-english-افلام-اجنبي/list/old/`;
                 }
                 else if (extra === "Best"){
-                    var URL = `${Host}/category/افلام-اجنبية/`
+                    var URL = `${Host}/category/افلام/10-movies-english-افلام-اجنبي/list/best/`
                 }
             }
-            else if (id === "CNmovies-Turk") {
-                var URL = `${Host}/category/افلام-تركية/`;
+            else if (id === "MCmovies-Indian") {
+                var URL = `${Host}/category/افلام/افلام-هندي-indian-movies/list/top/`;
                 if (extra === "New") {
-                    var URL = `${Host}/category/افلام-تركية/`;
+                    var URL = `${Host}/category/افلام/افلام-هندي-indian-movies/`;
                 }
                 else if (extra === "Old"){
-                    var URL = `${Host}/category/افلام-تركية/`;
+                    var URL = `${Host}/category/افلام/افلام-هندي-indian-movies/list/old/`;
                 }
                 else if (extra === "Best"){
-                    var URL = `${Host}/category/افلام-تركية/`
+                    var URL = `${Host}/category/افلام/افلام-هندي-indian-movies/list/best/`
+                }
+            }
+            else if (id === "MCmovies-Turkish") {
+                var URL = `${Host}/category/افلام/افلام-تركى-turkish-films/list/top/`;
+                if (extra === "New") {
+                    var URL = `${Host}/category/افلام/افلام-تركى-turkish-films/`;
+                }
+                else if (extra === "Old"){
+                    var URL = `${Host}/category/افلام/افلام-تركى-turkish-films/list/old/`;
+                }
+                else if (extra === "Best"){
+                    var URL = `${Host}/category/افلام/افلام-تركى-turkish-films/list/best/`
                 }
             }
             
             
 
         }
-       else if (type === 'series') {
-            if (id === "CNseries"){
-                var URL = `${Host}/category/المسلسلات/`;
+        else if (type === 'series') {
+            if (id === "MCseries"){
+                var URL = `${Host}/seriestv/top`;
 
                 if (extra === "New") {
-                    var URL = `${Host}/الاحدث/`;
+                    var URL = `${Host}/seriestv/new/`;
                 }
                 else if (extra === "Old"){
-                    var URL = `${Host}/category/المسلسلات/`;
+                    var URL = `${Host}/seriestv/old`;
                 }
                 else if (extra === "Best"){
-                    var URL = `${Host}/category/المسلسلات/`
+                    var URL = `${Host}/seriestv/best/`
                 }
             }
-            else if (id === "CNseries-Arabic") {
-                var URL = `${Host}/category/مسلسلات-عربية/`;
+            else if (id === "MCseries-Arabic") {
+                var URL = `${Host}/category/مسلسلات/13-مسلسلات-عربيه-arabic-series/list/`;
             }
-            else if (id === "CNseries-English") {
-                var URL = `${Host}/category/مسلسلات-اجنبية/`;
+            else if (id === "MCseries-English") {
+                var URL = `${Host}/category/مسلسلات/5-series-english-مسلسلات-اجنبي/list/`;
             }
-            else if (id === "CNseries-Turk") {
-                var URL = `${Host}/category/مسلسلات-تركية/`;
+            else if (id === "MCseries-Indian") {
+                var URL = `${Host}/category/مسلسلات/9-series-indian-مسلسلات-هندية/list/`;
+            }
+            else if (id === "MCseries-Turkish") {
+                var URL = `${Host}/category/مسلسلات/8-مسلسلات-تركية-turkish-series/list/`;
+            }
+            else if (id === "MCseries-Asian") {
+                var URL = `${Host}/category/مسلسلات/مسلسلات-اسيوية/list/`;
             }
         }
-        var res = encodeURIComponent(URL);
+        var res = encodeURI(URL);
             var promise = (await client.get(res)).data;
-            let parsed = parser.parse(promise).querySelector("section").querySelectorAll("article");
+            let parsed = parser.parse(promise).querySelector('.Grid--MycimaPosts').querySelectorAll('.GridItem');
             return parsed.map( (movie) => {
                 let cat = {
                     id: movie.querySelector('a').rawAttributes['href'].toString(),
                     type: type,
-                    name : movie.querySelector('.info').querySelector('li:nth-child(3)').rawText.toString(),
-                    poster : movie.querySelector('a').querySelector('img').rawAttributes['src'].toString(),
+                    name : movie.querySelector('a').querySelector('.hasyear').rawText.toString(),
+                    poster : movie.querySelector('.BG--GridItem').rawAttributes['data-lazy-style'].replace(/\(|\)|;|--image:url/g, ''),
                 }
-                if (movie.querySelector('a').querySelector('li:nth-child(2)')) {
-                    cat.releaseInfo = movie.querySelector('a').querySelector('li:nth-child(2)').rawText.toString();
+
+                if (movie.querySelector('.hasyear')) {
+                    cat.releaseInfo = movie.querySelector('.year').rawText.toString();
                 }
                 return cat;
                 
@@ -176,14 +195,14 @@ else if (id === "CNmovies-Arabic") {
     }
 }
 
-// catalog('series', 'CNseries-New');
+// catalog('series', 'MCseries-New');
 
 async function meta (type, id) {
 
     if (type === 'movie'){
         try {
             var URL = id;
-            var res = encodeURIComponent(URL);
+            var res = encodeURI(URL);
             var promise = (await client.get(res)).data;
             var link = res;
         }catch (error) {
@@ -200,7 +219,7 @@ async function meta (type, id) {
     if (type == 'series') {
         try {
             var URL = id;
-            var res = encodeURIComponent(URL);
+            var res = encodeURI(URL);
             var promise = (await client.get(res)).data;
             var link = res;
         }catch (error) {
@@ -227,20 +246,22 @@ async function meta (type, id) {
     var description;
     var bg;
 
-    let title = parsed.querySelector('article').querySelector('img').rawAttributes['alt'].toString();
+    let title = parsed.querySelector('.Title--Content--Single-begin').querySelector('h1').rawText.toString();
     if (type == 'movie') {
-        description = parsed.querySelector("li[aria-label='story']").querySelector('p').rawText.toString();
-        bg = parsed.querySelector('article').querySelector('img').rawAttributes['src'].toString();
+        description = parsed.querySelector('.StoryMovieContent').rawText.toString();
+        bg = parsed.querySelector('.separated--top').rawAttributes['data-lazy-style'].toString().replace(/\(|\)|;|--img:url/g, '');
     }
     if (type == 'series') {
-        description = parsed.querySelector("li[aria-label='story']").querySelector('p').rawText.toString();
-        bg = parsed.querySelector('article').querySelector('img').rawAttributes['src'].toString();
+        description = parsed.querySelector('.PostItemContent').rawText.toString();
+        bg = parsed.querySelector('.separated--top').rawAttributes['style'].toString().replace(/\(|\)|;|--img:url/g, '');
     }
     
-    let year = parsed.querySelector('article').querySelector('ul:nth-child(1)').querySelector('li:nth-child(6)').rawText.toString();
+    let year = parsed.querySelector('.Title--Content--Single-begin').querySelector('h1').querySelector('a').rawText.toString();
 
 
-    let genres = parsed.querySelector('article').querySelector('ul:nth-child(1)').querySelector('li:nth-child(5)').rawText.toString();
+    let genres = parsed.querySelector('.Terms--Content--Single-begin').querySelectorAll('a')
+    .map( (genre) => { 
+        return genre.rawText.toString();})
 
     
 
@@ -289,7 +310,7 @@ async function seasonlist(id) {
 
     try {
         var URL = id;
-        var res = encodeURIComponent(URL);
+        var res = encodeURI(URL);
         var promise = (await client.get(res)).data;
         var link = res;
     }catch (error) {
@@ -309,14 +330,14 @@ async function seasonlist(id) {
     }
 
     let parsed = parser.parse(promise);
-    var seasonsEpisodes = parsed.querySelector('main');
+    var seasonsEpisodes = parsed.querySelector('.Seasons--Episodes');
 
     var seasonarray =  [];
 
     try {
         
-        if (seasonsEpisodes.querySelector("section[aria-label='seasons']")) {
-            var seasonsList = seasonsEpisodes.querySelector("section[aria-label='seasons']").querySelectorAll('a');
+        if (seasonsEpisodes.querySelector('.List--Seasons--Episodes')) {
+            var seasonsList = seasonsEpisodes.querySelector('.List--Seasons--Episodes').querySelectorAll('a');
             
             for (i = 0; i < seasonsList.length; i++) {
                
@@ -325,7 +346,7 @@ async function seasonlist(id) {
         
         
                 let pars = parser.parse(seasonData);
-                 var eplist = pars.querySelector('#eps').querySelector('a');
+                 var eplist = pars.querySelector('.Episodes--Seasons--Episodes').querySelectorAll('a');
         
                 eplist.reverse();
         
@@ -334,7 +355,7 @@ async function seasonlist(id) {
                     var epData =  (await client.get(epUrl)).data;
                     let edDataParsed = parser.parse(epData);
         
-                    let epTitle = edDataParsed.querySelector('#eps').querySelector('a').querySelector('img:nth-child(2)').rawAttributes['alt'].toString();
+                    let epTitle = edDataParsed.querySelector('.Title--Content--Single-begin').querySelector('h1').rawText.toString();
         
                     seasonarray.push({
                         id: epUrl,
@@ -350,7 +371,7 @@ async function seasonlist(id) {
     
         }
          else if (!seasonsList) {
-            var eplist = parsed.querySelector('#eps').querySelector('a');
+            var eplist = parsed.querySelector('.Episodes--Seasons--Episodes').querySelectorAll('a');
         
                 eplist.reverse();
         
@@ -359,7 +380,7 @@ async function seasonlist(id) {
                     var epData =  (await client.get(epUrl)).data;
                     let edDataParsed = parser.parse(epData);
         
-                    let epTitle = edDataParsed.querySelector('#eps').querySelector('a').querySelector('img:nth-child(2)').rawAttributes['alt'].toString();
+                    let epTitle = edDataParsed.querySelector('.Title--Content--Single-begin').querySelector('h1').rawText.toString();
         
                     seasonarray.push({
                         id: epUrl,
@@ -388,7 +409,7 @@ async function stream (type, id) {
     if (type === 'movie'){
         try {
             var URL = id;
-            var res = encodeURIComponent(URL);
+            var res = encodeURI(URL);
             var promise = (await client.get(res)).data;
             var link = res;
         }catch (error) {
@@ -408,12 +429,12 @@ async function stream (type, id) {
             console.log(error);
         }
 
-        let parsed = parser.parse(promise).querySelector('#download').querySelectorAll('a');
+        let parsed = parser.parse(promise).querySelector('.List--Download--Mycima--Single').querySelectorAll('a');
 
         var streamList =  parsed.map( stream => {
             return {
                 url: stream.rawAttributes['href'],
-                name: stream.querySelector('a').rawText
+                name: stream.querySelector('resolution').rawText
             }
 
         })
@@ -424,7 +445,7 @@ async function stream (type, id) {
 
         try {
             var URL = id;
-            var res = encodeURIComponent(URL);
+            var res = encodeURI(URL);
             var promise = (await client.get(res)).data;
             var link = res;
         }catch (error) {
@@ -443,12 +464,12 @@ async function stream (type, id) {
             console.log(error);
         }
 
-        let parsed = parser.parse(promise).querySelector('#download').querySelectorAll('a');
+        let parsed = parser.parse(promise).querySelector('.List--Download--Mycima--Single').querySelectorAll('a');
 
         var epStreamList =  parsed.map( stream => {
             return  {
                 url: stream.rawAttributes['href'],
-                name: stream.querySelector('a').rawText
+                name: stream.querySelector('resolution').rawText
             }
 
         })
