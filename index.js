@@ -16,7 +16,7 @@ async function search(type, query) {
     if (type === 'movie') {
         try {
             var URL = `${Host}/?s=${query.replace(/\s/g, '+')}`;
-            var res = encodeURI(URL);
+            var res = encodeURIComponent(URL);
             var promise = (await client.get(res)).data;
             var link = res;
         }catch(error) {
@@ -31,7 +31,7 @@ async function search(type, query) {
     else if (type === 'series'){
         try {
             var URL = `${Host}/?s=${query.replace(/\s/g, '+')}`;
-            var res = encodeURI(URL);
+            var res = encodeURIComponent(URL);
             var promise = (await client.get(res)).data;
             var link = res;
         }catch(error) {
@@ -154,7 +154,7 @@ else if (id === "CNmovies-Arabic") {
                 var URL = `${Host}/category/مسلسلات-تركية/`;
             }
         }
-        var res = encodeURI(URL);
+        var res = encodeURIComponent(URL);
             var promise = (await client.get(res)).data;
             let parsed = parser.parse(promise).querySelector("section").querySelectorAll("article");
             return parsed.map( (movie) => {
@@ -183,7 +183,7 @@ async function meta (type, id) {
     if (type === 'movie'){
         try {
             var URL = id;
-            var res = encodeURI(URL);
+            var res = encodeURIComponent(URL);
             var promise = (await client.get(res)).data;
             var link = res;
         }catch (error) {
@@ -200,7 +200,7 @@ async function meta (type, id) {
     if (type == 'series') {
         try {
             var URL = id;
-            var res = encodeURI(URL);
+            var res = encodeURIComponent(URL);
             var promise = (await client.get(res)).data;
             var link = res;
         }catch (error) {
@@ -289,7 +289,7 @@ async function seasonlist(id) {
 
     try {
         var URL = id;
-        var res = encodeURI(URL);
+        var res = encodeURIComponent(URL);
         var promise = (await client.get(res)).data;
         var link = res;
     }catch (error) {
@@ -388,7 +388,7 @@ async function stream (type, id) {
     if (type === 'movie'){
         try {
             var URL = id;
-            var res = encodeURI(URL);
+            var res = encodeURIComponent(URL);
             var promise = (await client.get(res)).data;
             var link = res;
         }catch (error) {
@@ -424,7 +424,7 @@ async function stream (type, id) {
 
         try {
             var URL = id;
-            var res = encodeURI(URL);
+            var res = encodeURIComponent(URL);
             var promise = (await client.get(res)).data;
             var link = res;
         }catch (error) {
