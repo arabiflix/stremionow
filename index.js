@@ -55,95 +55,95 @@ async function catalog(type, id, extra) {
 
     if (type === 'movie') {
       if (id === "MCmovies"){
-        var URL = `${Host}/movies/top/`;
+        let URL = `${Host}/movies/top/`;
 
         if (extra === "New") {
-            var URL = `${Host}/movies/`;
+            URL = `${Host}/movies/`;
         }
         else if (extra === "Old"){
-            var URL = `${Host}/movies/old/`;
+            URL = `${Host}/movies/old/`;
         }
         else if (extra === "Best"){
-            var URL = `${Host}/movies/best/`
+            URL = `${Host}/movies/best/`
         }
     }
     else if (id === "MCmovies-Arabic") {
-        var URL = `${Host}/category/افلام/6-arabic-movies-افلام-عربي/list/top/`;
+        let URL = `${Host}/category/افلام/6-arabic-movies-افلام-عربي/list/top/`;
         if (extra === "New") {
-            var URL = `${Host}/category/افلام/6-arabic-movies-افلام-عربي/`;
+             URL = `${Host}/category/افلام/6-arabic-movies-افلام-عربي/`;
         }
         else if (extra === "Old"){
-            var URL = `${Host}/category/افلام/6-arabic-movies-افلام-عربي/list/old/`;
+             URL = `${Host}/category/افلام/6-arabic-movies-افلام-عربي/list/old/`;
         }
         else if (extra === "Best"){
-            var URL = `${Host}/category/افلام/6-arabic-movies-افلام-عربي/list/best/`
+             URL = `${Host}/category/افلام/6-arabic-movies-افلام-عربي/list/best/`
         }
     }
     else if (id === "MCmovies-English") {
-        var URL = `${Host}/category/افلام/10-movies-english-افلام-اجنبي/list/top/`;
+        let URL = `${Host}/category/افلام/10-movies-english-افلام-اجنبي/list/top/`;
         if (extra === "New") {
-            var URL = `${Host}/category/افلام/10-movies-english-افلام-اجنبي/`;
+             URL = `${Host}/category/افلام/10-movies-english-افلام-اجنبي/`;
         }
         else if (extra === "Old"){
-            var URL = `${Host}/category/افلام/10-movies-english-افلام-اجنبي/list/old/`;
+             URL = `${Host}/category/افلام/10-movies-english-افلام-اجنبي/list/old/`;
         }
         else if (extra === "Best"){
-            var URL = `${Host}/category/افلام/10-movies-english-افلام-اجنبي/list/best/`
+             URL = `${Host}/category/افلام/10-movies-english-افلام-اجنبي/list/best/`
         }
     }
     else if (id === "MCmovies-Indian") {
-        var URL = `${Host}/category/افلام/افلام-هندي-indian-movies/list/top/`;
+        let URL = `${Host}/category/افلام/افلام-هندي-indian-movies/list/top/`;
         if (extra === "New") {
-            var URL = `${Host}/category/افلام/افلام-هندي-indian-movies/`;
+             URL = `${Host}/category/افلام/افلام-هندي-indian-movies/`;
         }
         else if (extra === "Old"){
-            var URL = `${Host}/category/افلام/افلام-هندي-indian-movies/list/old/`;
+             URL = `${Host}/category/افلام/افلام-هندي-indian-movies/list/old/`;
         }
         else if (extra === "Best"){
-            var URL = `${Host}/category/افلام/افلام-هندي-indian-movies/list/best/`
+             URL = `${Host}/category/افلام/افلام-هندي-indian-movies/list/best/`
         }
     }
     else if (id === "MCmovies-Turkish") {
-        var URL = `${Host}/category/افلام/افلام-تركى-turkish-films/list/top/`;
+        let URL = `${Host}/category/افلام/افلام-تركى-turkish-films/list/top/`;
         if (extra === "New") {
-            var URL = `${Host}/category/افلام/افلام-تركى-turkish-films/`;
+             URL = `${Host}/category/افلام/افلام-تركى-turkish-films/`;
         }
         else if (extra === "Old"){
-            var URL = `${Host}/category/افلام/افلام-تركى-turkish-films/list/old/`;
+             URL = `${Host}/category/افلام/افلام-تركى-turkish-films/list/old/`;
         }
         else if (extra === "Best"){
-            var URL = `${Host}/category/افلام/افلام-تركى-turkish-films/list/best/`
+             URL = `${Host}/category/افلام/افلام-تركى-turkish-films/list/best/`
         }
     }
     
     } else if (type === 'series') {
       if (id === "MCseries"){
-        var URL = `${Host}/seriestv/top`;
+        let URL = `${Host}/seriestv/top`;
 
         if (extra === "New") {
-            var URL = `${Host}/seriestv/new/`;
+             URL = `${Host}/seriestv/new/`;
         }
         else if (extra === "Old"){
-            var URL = `${Host}/seriestv/old`;
+             URL = `${Host}/seriestv/old`;
         }
         else if (extra === "Best"){
-            var URL = `${Host}/seriestv/best/`
+             URL = `${Host}/seriestv/best/`
         }
     }
     else if (id === "MCseries-Arabic") {
-        var URL = `${Host}/category/مسلسلات/13-مسلسلات-عربيه-arabic-series/list/`;
+        let URL = `${Host}/category/مسلسلات/13-مسلسلات-عربيه-arabic-series/list/`;
     }
     else if (id === "MCseries-English") {
-        var URL = `${Host}/category/مسلسلات/5-series-english-مسلسلات-اجنبي/list/`;
+        let URL = `${Host}/category/مسلسلات/5-series-english-مسلسلات-اجنبي/list/`;
     }
     else if (id === "MCseries-Indian") {
-        var URL = `${Host}/category/مسلسلات/9-series-indian-مسلسلات-هندية/list/`;
+        let URL = `${Host}/category/مسلسلات/9-series-indian-مسلسلات-هندية/list/`;
     }
     else if (id === "MCseries-Turkish") {
-        var URL = `${Host}/category/مسلسلات/8-مسلسلات-تركية-turkish-series/list/`;
+        let URL = `${Host}/category/مسلسلات/8-مسلسلات-تركية-turkish-series/list/`;
     }
     else if (id === "MCseries-Asian") {
-        var URL = `${Host}/category/مسلسلات/مسلسلات-اسيوية/list/`;
+        let URL = `${Host}/category/مسلسلات/مسلسلات-اسيوية/list/`;
     }
     }
 
