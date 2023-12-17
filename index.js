@@ -331,6 +331,12 @@ async function stream(type, id) {
   }
 }
 
+// Global unhandled rejection handler
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+  // Application-specific logging, throwing an error, or other logic here
+});
+
 module.exports = {
   search,
   catalog,
