@@ -1,13 +1,12 @@
 {
-	"id": "community.cimanow",
-	"version": "0.0.9",
-	"name": "CimaNow by Arabiflix",
+    "id": "community.cimanow",
+    "version": "0.0.10",
+    "name": "CimaNow by Arabiflix",
     "description": "Addon for Streaming from CimaNow by Arabiflix",
     "logo": "https://cimanow.cc/wp-content/uploads/2017/05/Favicon.gif",
-	"background":"https://raw.githubusercontent.com/Stremio/stremio-art/main/originals/Ahlen%20Ken%20A.%20Batalon.png",
+    "background": "https://raw.githubusercontent.com/Stremio/stremio-art/main/originals/Ahlen%20Ken%20A.%20Batalon.png",
     "contactEmail": "none",
-	
-	"catalogs": [{
+    "catalogs": [{
 		"type": "movie",
 
 		"id": "MCmovies",
@@ -129,13 +128,11 @@
 		"name": "Mycima Asian Series"
 	}
 ],
-	"resources": [
-		"catalog",
-		"stream",
-		"meta"
-	],
-	"types": [
-		"movie",
-		"series"
-	]
-}
+    "resources": [
+      "catalog",
+      "stream",
+      "meta"
+    ],
+    "types": ["movie", "series"]
+  }
+  
