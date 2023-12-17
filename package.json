@@ -12,7 +12,7 @@
     "dependencies": {
       "axios": "^0.27.2",
       "fast-html-parser": "^1.0.1",
-      "stremio-addon-sdk": "^1.6.10"
+      "stremio-addon-sdk": "^1.6.x"
     }
   }
   
