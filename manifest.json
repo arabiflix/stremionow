@@ -128,11 +128,13 @@
 		"name": "Mycima Asian Series"
 	}
 ],
-    "resources": [
-      "catalog",
-      "stream",
-      "meta"
-    ],
-    "types": ["movie", "series"]
-  }
-  
+	"resources": [
+		"catalog",
+		"stream",
+		"meta"
+	],
+	"types": [
+		"movie",
+		"series"
+	]
+}
