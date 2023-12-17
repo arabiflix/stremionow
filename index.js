@@ -11,163 +11,142 @@ const client = axios.create({
 
 async function search(type, query) {
   try {
-    let URL, res, promise, link;
-
-    if (type === 'movie') {
-      URL = `${Host}/search/${query.replace(/\s/g, '+')}`;
-      res = encodeURI(URL);
-      promise = (await client.get(res)).data;
-      link = res;
-    } else if (type === 'series') {
-      URL = `${Host}/search/${query.replace(/\s/g, '+')}/list/series/`;
-      res = encodeURI(URL);
-      promise = (await client.get(res)).data;
-      link = res;
-    }
-
-    promise = (await client.get(link)).data;
-
-    let parsed = parser.parse(promise).querySelector('.Grid--MycimaPosts').querySelectorAll('.GridItem');
-
-    return parsed.map((movie) => {
-      if (movie) {
-        let cat = {
-          id: movie.querySelector('a').rawAttributes['href'].toString(),
-          type: type,
-          title: movie.querySelector('a').rawAttributes['title'].toString(),
-          poster: movie.querySelector('.BG--GridItem').rawAttributes['data-lazy-style'].replace(/\(|\)|;|--image:url/g, ''),
-        };
-        if (movie.querySelector('.year')) {
-          cat.released = movie.querySelector('.year').rawText.toString();
-        }
-        return cat;
+      let URL;
+      let link;
+      if (type === 'movie') {
+          URL = `${Host}/search/${query.replace(/\s/g, '+')}`;
+          link = encodeURI(URL);
+      } else if (type === 'series') {
+          URL = `${Host}/search/${query.replace(/\s/g, '+')}/list/series/`;
+          link = encodeURI(URL);
       }
-    });
+
+      const promise = await client.get(link);
+      const parsed = parser.parse(promise.data).querySelector('.Grid--MycimaPosts').querySelectorAll('.GridItem');
+
+      return parsed.map((movie) => {
+          if (movie) {
+              const cat = {
+                  id: movie.querySelector('a').rawAttributes['href'].toString(),
+                  type: type,
+                  title: movie.querySelector('a').rawAttributes['title'].toString(),
+                  poster: movie.querySelector('.BG--GridItem').rawAttributes['data-lazy-style'].replace(/\(|\)|;|--image:url/g, ''),
+              };
+              if (movie.querySelector('.year')) {
+                  cat.released = movie.querySelector('.year').rawText.toString();
+              }
+              return cat;
+          }
+      });
   } catch (error) {
-    console.error('Error in search:', error);
-    return [];
+      console.error(error);
+      throw error; // Re-throw the error to be caught by the calling function
   }
 }
 
 async function catalog(type, id, extra) {
   try {
-    let URL;
-
-    if (type === 'movie') {
-      if (id === "MCmovies"){
-        let URL = `${Host}/movies/top/`;
-
-        if (extra === "New") {
-            URL = `${Host}/movies/`;
-        }
-        else if (extra === "Old"){
-            URL = `${Host}/movies/old/`;
-        }
-        else if (extra === "Best"){
-            URL = `${Host}/movies/best/`
-        }
-    }
-    else if (id === "MCmovies-Arabic") {
-        let URL = `${Host}/category/افلام/6-arabic-movies-افلام-عربي/list/top/`;
-        if (extra === "New") {
-             URL = `${Host}/category/افلام/6-arabic-movies-افلام-عربي/`;
-        }
-        else if (extra === "Old"){
-             URL = `${Host}/category/افلام/6-arabic-movies-افلام-عربي/list/old/`;
-        }
-        else if (extra === "Best"){
-             URL = `${Host}/category/افلام/6-arabic-movies-افلام-عربي/list/best/`
-        }
-    }
-    else if (id === "MCmovies-English") {
-        let URL = `${Host}/category/افلام/10-movies-english-افلام-اجنبي/list/top/`;
-        if (extra === "New") {
-             URL = `${Host}/category/افلام/10-movies-english-افلام-اجنبي/`;
-        }
-        else if (extra === "Old"){
-             URL = `${Host}/category/افلام/10-movies-english-افلام-اجنبي/list/old/`;
-        }
-        else if (extra === "Best"){
-             URL = `${Host}/category/افلام/10-movies-english-افلام-اجنبي/list/best/`
-        }
-    }
-    else if (id === "MCmovies-Indian") {
-        let URL = `${Host}/category/افلام/افلام-هندي-indian-movies/list/top/`;
-        if (extra === "New") {
-             URL = `${Host}/category/افلام/افلام-هندي-indian-movies/`;
-        }
-        else if (extra === "Old"){
-             URL = `${Host}/category/افلام/افلام-هندي-indian-movies/list/old/`;
-        }
-        else if (extra === "Best"){
-             URL = `${Host}/category/افلام/افلام-هندي-indian-movies/list/best/`
-        }
-    }
-    else if (id === "MCmovies-Turkish") {
-        let URL = `${Host}/category/افلام/افلام-تركى-turkish-films/list/top/`;
-        if (extra === "New") {
-             URL = `${Host}/category/افلام/افلام-تركى-turkish-films/`;
-        }
-        else if (extra === "Old"){
-             URL = `${Host}/category/افلام/افلام-تركى-turkish-films/list/old/`;
-        }
-        else if (extra === "Best"){
-             URL = `${Host}/category/افلام/افلام-تركى-turkish-films/list/best/`
-        }
-    }
+      let URL;
+      if (type === 'movie') {
+          if (id === "MCmovies") {
+              URL = `${Host}/movies/top/`;
+              if (extra === "New") {
+                  URL = `${Host}/movies/`;
+              } else if (extra === "Old") {
+                  URL = `${Host}/movies/old/`;
+              } else if (extra === "Best") {
+                  URL = `${Host}/movies/best/`
+              }
+          } else if (id === "MCmovies-Arabic") {
+              URL = `${Host}/category/افلام/6-arabic-movies-افلام-عربي/list/top/`;
+              if (extra === "New") {
+                  URL = `${Host}/category/افلام/6-arabic-movies-افلام-عربي/`;
+              } else if (extra === "Old") {
+                  URL = `${Host}/category/افلام/6-arabic-movies-افلام-عربي/list/old/`;
+              } else if (extra === "Best") {
+                  URL = `${Host}/category/افلام/6-arabic-movies-افلام-عربي/list/best/`
+              }
+          }
+              else if (id === "MCmovies-English") {
+                URL = `${Host}/category/افلام/10-movies-english-افلام-اجنبي/list/top/`;
+                if (extra === "New") {
+                    URL = `${Host}/category/افلام/10-movies-english-افلام-اجنبي/`;
+                } else if (extra === "Old") {
+                    URL = `${Host}/category/افلام/10-movies-english-افلام-اجنبي/list/old/`;
+                } else if (extra === "Best") {
+                    URL = `${Host}/category/افلام/10-movies-english-افلام-اجنبي/list/best/`
+                }
+            }
+              else if (id === "MCmovies-Indian") {
+                URL = `${Host}/category/افلام/افلام-هندي-indian-movies/list/top/`;
+                if (extra === "New") {
+                    URL = `${Host}/category/افلام/افلام-هندي-indian-movies/`;
+                } else if (extra === "Old") {
+                    URL = `${Host}/category/افلام/افلام-هندي-indian-movies/list/old/`;
+                } else if (extra === "Best") {
+                    URL = `${Host}/category/افلام/افلام-هندي-indian-movies/list/best/`
+                }
+            }
+              else if (id === "MCmovies-Turkish") {
+                URL = `${Host}/category/افلام/افلام-تركى-turkish-films/list/top/`;
+                if (extra === "New") {
+                    URL = `${Host}/category/افلام/افلام-تركى-turkish-films/`;
+                } else if (extra === "Old") {
+                    URL = `${Host}/category/افلام/افلام-تركى-turkish-films/list/old/`;
+                } else if (extra === "Best") {
+                    URL = `${Host}/category/افلام/افلام-تركى-turkish-films/list/best/`
+                }
+            }
     
     } else if (type === 'series') {
-      if (id === "MCseries"){
-        let URL = `${Host}/seriestv/top`;
-
+      if (id === "MCseries") {
+        URL = `${Host}/seriestv/top`;
         if (extra === "New") {
-             URL = `${Host}/seriestv/new/`;
-        }
-        else if (extra === "Old"){
-             URL = `${Host}/seriestv/old`;
-        }
-        else if (extra === "Best"){
-             URL = `${Host}/seriestv/best/`
+            URL = `${Host}/seriestv/new/`;
+        } else if (extra === "Old") {
+            URL = `${Host}/seriestv/old`;
+        } else if (extra === "Best") {
+            URL = `${Host}/seriestv/best/`
         }
     }
     else if (id === "MCseries-Arabic") {
-        let URL = `${Host}/category/مسلسلات/13-مسلسلات-عربيه-arabic-series/list/`;
+        URL = `${Host}/category/مسلسلات/13-مسلسلات-عربيه-arabic-series/list/`;
     }
     else if (id === "MCseries-English") {
-        let URL = `${Host}/category/مسلسلات/5-series-english-مسلسلات-اجنبي/list/`;
+        URL = `${Host}/category/مسلسلات/5-series-english-مسلسلات-اجنبي/list/`;
     }
     else if (id === "MCseries-Indian") {
-        let URL = `${Host}/category/مسلسلات/9-series-indian-مسلسلات-هندية/list/`;
+        URL = `${Host}/category/مسلسلات/9-series-indian-مسلسلات-هندية/list/`;
     }
     else if (id === "MCseries-Turkish") {
-        let URL = `${Host}/category/مسلسلات/8-مسلسلات-تركية-turkish-series/list/`;
+        URL = `${Host}/category/مسلسلات/8-مسلسلات-تركية-turkish-series/list/`;
     }
     else if (id === "MCseries-Asian") {
-        let URL = `${Host}/category/مسلسلات/مسلسلات-اسيوية/list/`;
+        URL = `${Host}/category/مسلسلات/مسلسلات-اسيوية/list/`;
     }
     }
 
-    let res = encodeURI(URL);
-    let promise = (await client.get(res)).data;
-    let parsed = parser.parse(promise).querySelector('.Grid--MycimaPosts').querySelectorAll('.GridItem');
+    const res = encodeURI(URL);
+        const promise = await client.get(res);
+        const parsed = parser.parse(promise.data).querySelector('.Grid--MycimaPosts').querySelectorAll('.GridItem');
 
-    return parsed.map((movie) => {
-      let cat = {
-        id: movie.querySelector('a').rawAttributes['href'].toString(),
-        type: type,
-        name: movie.querySelector('a').querySelector('.hasyear').rawText.toString(),
-        poster: movie.querySelector('.BG--GridItem').rawAttributes['data-lazy-style'].replace(/\(|\)|;|--image:url/g, ''),
-      };
+        return parsed.map((movie) => {
+            const cat = {
+                id: movie.querySelector('a').rawAttributes['href'].toString(),
+                type: type,
+                name: movie.querySelector('a').querySelector('.hasyear').rawText.toString(),
+                poster: movie.querySelector('.BG--GridItem').rawAttributes['data-lazy-style'].replace(/\(|\)|;|--image:url/g, ''),
+            };
 
-      if (movie.querySelector('.hasyear')) {
-        cat.releaseInfo = movie.querySelector('.year').rawText.toString();
-      }
-      return cat;
-    });
-  } catch (error) {
-    console.error('Error in catalog:', error);
-    return [];
-  }
+            if (movie.querySelector('.hasyear')) {
+                cat.releaseInfo = movie.querySelector('.year').rawText.toString();
+            }
+            return cat;
+        });
+    } catch (error) {
+        console.error(error);
+        throw error; // Re-throw the error to be caught by the calling function
+    }
 }
 
 async function meta(type, id) {
